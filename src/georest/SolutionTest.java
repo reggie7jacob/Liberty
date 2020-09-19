@@ -1,5 +1,9 @@
 package georest;
 
+import java.util.HashMap;
+//import java.util.Map;
+
+import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -12,15 +16,9 @@ public class SolutionTest {
 		solutions = new Solution();	  
 	}
 
-
-  @Test
-  public void SimpleArraySumTest() {
-   System.out.println("Test not implemented");
-  }
-
   @Test
   public void collectPerfectNumberTest() {
-	  int max=900000;
+	  int max=9000;
 		System.out.println("\n > collectPerfectNumber up to " +max);
 		solutions.collectPerfectNumber(max);
   }
@@ -28,14 +26,33 @@ public class SolutionTest {
   @Test
   public void compareWordContentTest() {
 		System.out.println("\n --  compareWordContent-- ;"); 
-		solutions.compareWordContent("VazaR","azRaV");
+		Assert.assertTrue(solutions.compareWordContent("VazaR","azRaV"));
   }
 
   @Test
-  public void countWordsTest() {
-   System.out.println("Test not implemented");
+  public void compareWordContentCaseDiffTest() {
+		System.out.println("\n --  compareWordContent-- ;"); 
+		Assert.assertFalse(solutions.compareWordContent("Vazar","azRaV"));
   }
-
+  
+  @Test
+  public void findWordJohnInSentenceTest() {
+		System.out.println("\n --  findWordInSentenceTest-- ;"); 
+		 Assert.assertTrue(solutions.findWordInSentence("John","My friend John is here",true));
+  }
+  
+  @Test
+  public void wordJohnInSentenceTest() {
+		System.out.println("\n --  findWordInSentenceTest-- ;"); 
+		 Assert.assertTrue(solutions.findWordInSentence("John","My friend gJohN is here",false));
+  }
+  
+  @Test
+  public void countWordsTest() {
+		//System.out.println("\n --  findWordInSentenceTest-- ;"); 
+		 solutions.countWords("John is my friend and he is here");
+  }
+  
   @Test
   public void fiboTailRecursionTest() {
 		int fibo = 13;
@@ -98,35 +115,52 @@ public class SolutionTest {
   }
 
   @Test
-  public void isNumberPrimeTest() {
-		System.out.println("\n >>  isNumberPrime();"); 
-		int givenNum=18;
-		solutions.isNumberPrime(givenNum);
-
-		for (int i=givenNum;i>2;i--) {
-			solutions.isNumberPrime(i);
-		}		
+  public void isNumber7825PrimeTest() {
+		int givenNum=7825;
+		solutions.isPrime(givenNum);
   }
-
+  
+  @Test
+  public void isNumber7827PrimeTest() {
+		int givenNum=7827;
+		solutions.isPrime(givenNum);
+		//for (int i=givenNum;i>2;i--) {
+			//solutions.isPrime(i);
+		//}		
+  }
+  @Test
+  public void is7919PrimeTest() {
+		int givenNum=7919 ;
+		solutions.isPrime(givenNum);
+  }
   @Test
   public void isNumberPrimeRecursiveTest() {
 		System.out.println("\n --  isNumberPrime--Recursive example-- ;"); 
-		solutions.isNumberPrimeRecursive(17,9);
+		solutions.isNumberPrimeRecursive(15,1);
   }
 
   @Test
-  public void isPerfectNumberTest() {
-		System.out.println("\n >> isPerfectNumber(8,true);");         
-		solutions.isPerfectNumber(8,true);
+  public void is496PerfectNumberTest() {   
+	  Assert.assertTrue (solutions.isPerfectNumber(496));
   }
 
+  @Test
+  public void is46PerfectNumberTest() {   
+	  Assert.assertFalse (solutions.isPerfectNumber(46));
+  }
+  
   @Test
   public void lengthOfLongestSubstringTest() {
 		System.out.println("\n  >> >> lengthOfLongestSubstring >>>>\"bbbbaaaaccfdstt\";>>>> ");
-		String someLetters="bbbbaaaaccfdstt";
-		solutions.lengthOfLongestSubstring(someLetters);
+		solutions.lengthOfLongestSubstring("bbbbaaaaccfdstt");
   }
 
+  @Test
+  public void lengthOfEmptySubstringTest() {
+		System.out.println("\n  >> >> lengthOfEmtySubstring > ");
+		solutions.lengthOfLongestSubstring("");
+  }
+  
   @Test
   public void printAllPossibleOrderedPairsTest() {
 		int[] intArray2={0,1,2,3};
@@ -147,7 +181,7 @@ public class SolutionTest {
 
   @Test
   public void reverseArrayTest() {
-	  System.out.println("Test not implemented");
+	  ///TODO System.out.println("Test not implemented");
   }
 
   @Test
@@ -196,16 +230,53 @@ public class SolutionTest {
   public void twoSumTest() {
 		System.out.println(" >>> >>>> {2,3,4,9,Integer.MAX_VALUE+1,111,56,44,3} twoSum(intArray,113) ===== ");
 		int [] intArray = {2,3,4,9,Integer.MAX_VALUE+1,111,56,44,3};
-		solutions.twoSum(intArray,113);
+		solutions.twoSumFast(intArray,113);
   }
 
   @Test
-  public void twoSumNewTest() {
-		int [] input={2,3,4,9,111,56,44,3};
-		int [] sum=solutions.twoSumNew(input,12);
-		for (int i=0;i<sum.length;i++) {
-			System.out.println("\n ??? >>>>  twoSumNew(intArray,11) =====?? "+sum[i]);
-		}
+  public void twoSumTestOneLoop() {
+		int [] input={2,3,4,8,111,56,44};
+		HashMap <Integer, Integer> sumMap = solutions.twoSumFast(input,5);			
+		System.out.println("\n First " +sumMap.get(0)+ " Second " +sumMap.get(1));
 
   }
+  
+  @Test
+  public void twoSumNewTestMultipleLoops() {
+		int [] input={2,3,4,8,111,56,44};
+		HashMap <Integer, Integer> sumMap = solutions.twoSumFast(input,119);			
+		System.out.println("\n First " +sumMap.get(0)+ " Second " +sumMap.get(1));
+
+  }
+  
+  @Test
+  public void twoStringsAreAnagramsTest() {
+	  Assert.assertTrue (solutions.isAnagramWithSort("abracadabra", "abrcadabraa"));
+  }
+  
+  @Test
+  public void twoStringsAreNotAnagramsTest() {
+	  Assert.assertFalse (solutions.isAnagramWithSort("abracadabr", "abrcadabraa"));	
+  }
+  
+  @Test
+  public void replaceTextMap() {
+	  
+	    HashMap<String, String> mapNames = new HashMap <String, String>();
+	    
+	    mapNames.put("[first name]","John");
+	    mapNames.put("[last name]","Smith");
+	    
+	    String text = "Hello [first name] [last name]";
+	    
+	    text = solutions.replaceText(text, mapNames);
+	    System.out.println("Resulting text is : " + text);
+  }
+  
+  @Test
+  public void testSwitch() {
+	  	solutions.switchMethod();
+
+  }
+  
 }

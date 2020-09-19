@@ -5,11 +5,18 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.File;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Stack;
 //import java.util.Map;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Queue;
+import java.util.Set;
 
 public class Solution {
 
@@ -92,64 +99,59 @@ public class Solution {
 				} else {
 					System.out.println("Please pass proper array to match the requirement");
 					return -1;
-							
+
 				}
 			}
 		}
 		return endIndex;
 	}
+	/***
+	 * 
+	 * @param numbers (array of numbers)
+	 * @param target - sum of two numbers
+	 * @return two numbers in the array that will make up the target
+	 */
 
-	public int[] twoSum(int[] nums, int target) {
-		System.out.println("<<<<<<<< In  twoSum   >>>>>>>>>>>>>>> ");
-
-		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-
-		for (int i = 0; i < nums.length; i++) {
-
-			int complement = target - nums[i];
-
-			if (map.containsKey(complement)) {
-
-				System.out.println(" twoSum >>>  indices are " +map.get(complement)+" and "+ i );
-
-				int[] values= { map.get(complement), i };
-				return values;
-			}
-			map.put(nums[i], i);
-			System.out.println(" indecies map now is " +map.get(complement)+" and "+ i );
-		}
-		throw new IllegalArgumentException("No two sum solution");
-	}
-
-
-	public int[] twoSumNew(int[] numbers, int target) {
+	public HashMap<Integer,Integer> twoSumFast(int[] numbers, int target) {
 		System.out.println("<<<<<<<< In  twoSumNew   >>>>>>>>>>>>>>> ");
-		
-		int[] result = new int[2];
-		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-		for (int i = 0; i < numbers.length; i++) {
-			if (map.containsKey(target - numbers[i])) {
-				result[1] = numbers[i];
-				result[0] = map.get(target - numbers[i]);
-				return result;
-			}
-			map.put(numbers[i], i);
+		if(numbers.length<1) {
+			System.out.println("\n Need at least two numbers");
+			return null;
 		}
-		return result;
+
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		int count = 0;
+		int firstNumber;
+		int secondNumber;
+
+		for (int i = 0; i < numbers.length; i++) {		
+			firstNumber = numbers[i];	
+
+			for (int j=i+1; j< numbers.length; j++) {	
+				secondNumber = target - firstNumber;
+				if(numbers[j] == secondNumber) {
+					map.put(count,firstNumber);
+					map.put (count++,secondNumber);							
+					return map;
+				}			
+			}
+		}
+		System.out.println("No such element found");
+		return null;
 	}
 
-/*
- * a series of numbers in which each number is the sum of the two preceding numbers.
- *  The simplest is the series 1, 2, 3, 5, 8, etc.
- */
+
+	/*
+	 * a series of numbers in which each number is the sum of the two preceding numbers.
+	 *  The simplest is the series 1, 2, 3, 5, 8, etc.
+	 */
 
 	public int fibonacciNumber(int numPosition) {
-		
-		int firstNum=2;
-		int secondNum=3;;
-
 		if (numPosition<0) return -1;  // we won't do negative
 		if (numPosition<4) return numPosition;
+
+		int firstNum=2;
+		int secondNum=3;;
 
 		for (int i=4;i<=numPosition;i++) {
 			int sum =firstNum+secondNum;
@@ -160,17 +162,17 @@ public class Solution {
 	}
 
 	public int fiboTailRecursion(int number){
-		
+
 		if(number == 1 || number == 2){
 			return 1; 
-			} 
+		} 
 		if(showDetails)System.out.println("<<<< currentFibo 2 > "+number);		
 		return fiboTailRecursion(number-1) + fiboTailRecursion(number -2); //tail recursion }
 	}
-	
+
 	//have to pass initial numbers, 
 	public int fibonacciRecursive(int numPosition, int firstNum, int secondNum) {
-		
+
 		if (numPosition<4) return secondNum;  // .......
 		int sum =firstNum+secondNum;
 
@@ -182,7 +184,7 @@ public class Solution {
 
 	public  void SimpleArraySum () {
 		System.out.println("<<<<<<<< In SimpleArraySum    >>>>>>>>>>>>>>> ");
-		
+
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
 		int numberOfInts=0;
@@ -210,9 +212,9 @@ public class Solution {
 		}
 		System.out.println("The sum is: "+sum);
 	}
-	
+
 	public String reverseStringRecursive(String str){
-		
+
 		String reverse = "";
 		if(str.length() < 2){
 			return str;
@@ -224,32 +226,32 @@ public class Solution {
 		return reverse;
 	}
 
-	
+
 	public String reverseString(String str){
 		System.out.println("<<<<<<<< In  reverseString   >>>>>>>>>>>>>>> ");
-		
-			String reverse = "";
-		
-	      for(int i = str.length() - 1; i >= 0; i--)
-	        {
-	            reverse = reverse + str.charAt(i);
-	        }
-	      	System.out.println("Reversed string is:");
-	        System.out.println(reverse);
-	        return reverse;	
+		if (str.length()<2) return str;
+		String reverse = "";
+
+		for(int i = str.length() - 1; i >= 0; i--)
+		{
+			reverse = reverse + str.charAt(i);
+		}
+		System.out.println("Reversed string is:");
+		System.out.println(reverse);
+		return reverse;	
 	}
-	
+
 
 	public String reverseStringStack(String s) {
 		System.out.println("<<<<<<<< In   reverseStringStack  >>>>>>>>>>>>>>> ");
-		
+
 		Stack<Character> charStack = new Stack<>();
 		String reversed = "";
 		for (int i = 0; i < s.length(); i++) {
 			char ch = s.charAt(i);
 			charStack.push(ch);
 		}
-		
+
 		for (int i = 0; i < s.length(); i++) {
 			char ch = charStack.pop();
 			reversed += ch;		}
@@ -261,7 +263,7 @@ public class Solution {
 	public String reverseSentence(String s) {
 		System.out.println("<<<<<<<< In   reverseSentence  >>>>>>>>>>>>>>> ");
 		if (s == null || s.isEmpty()) return s;
-		
+
 		String[] split = s.split(" ");
 		String result = "";
 
@@ -318,12 +320,12 @@ public class Solution {
 
 	public String collectPerfectNumber(int max) {
 		System.out.println("<<<<<<<< In  collectPerfectNumber   >>>>>>>>>>>>>>> ");
-		
+
 		String integers="";
 
 		for (int i=0;i<max;i++) {
 
-			if ( isPerfectNumber(i,false) ) {
+			if ( isPerfectNumber(i) ) {
 				integers+=i;
 				integers+=", ";
 			}
@@ -337,39 +339,36 @@ public class Solution {
 	 * The smallest perfect number is 6, which is the sum of 1, 2, and 3. 
 	 * Other perfect numbers are 28, 496, and 8,128
 	 */
-	
-	public boolean isPerfectNumber(int number, boolean printOut){
+
+	public boolean isPerfectNumber(int number){
 		int temp = 0;
-		
 		for(int i=1;i<=number/2;i++){
 
 			if(number%i == 0){
 				temp += i;
-				if (printOut) System.out.println("temp is: "+temp+" i =="+i);
+				if (showDetails) System.out.println("temp is: "+temp+" i =="+i);
 			}
 		}
-		
-		if(temp == number){
-			if (printOut) System.out.println(number+" is a perfect number");
-
+		if(temp == number){		
+			System.out.println(number+" is a perfect number");
 			return true;
 		} else {
-			if (printOut) System.out.println(number+" is NOT a perfect number");
+			System.out.println(number+" is NOT a perfect number");
 			return false;
 		}
 	}
-	
-	public static int[] reverseArray(int[] list) {
-		System.out.println("<<<<<<<< In   reverseArray  >>>>>>>>>>>>>>> ");
-		
-		   int[] result = new int[list.length];
 
-		   for (int i = 0, j = result.length - 1; i < list.length; i++, j--) {
-			   
-		      result[j] = list[i];
-		   }
-		   return result;
+	public int[] reverseArray(int[] list) {
+		System.out.println("<<<<<<<< In   reverseArray  >>>>>>>>>>>>>>> ");
+
+		int[] result = new int[list.length];
+
+		for (int i = 0, j = result.length - 1; i < list.length; i++, j--) {
+
+			result[j] = list[i];
 		}
+		return result;
+	}
 
 	//==================== 
 
@@ -397,22 +396,22 @@ public class Solution {
 		}
 		return charArrayToReturn;
 	}
-	
-    public static String sortString(String inputString) 
-    { 
-        // convert input string to char array 
-        char tempArray[] = inputString.toCharArray(); 
-          
-        // sort tempArray 
-        Arrays.sort(tempArray); 
-          
-        // return new sorted string 
-        return new String(tempArray); 
-    } 
+
+	public String sortString(String inputString) 
+	{ 
+		// convert input string to char array 
+		char tempArray[] = inputString.toCharArray(); 
+
+		// sort tempArray 
+		Arrays.sort(tempArray); 
+
+		// return new sorted string 
+		return new String(tempArray); 
+	} 
 
 	public char[][] getWordsFromString(String sentence){
 		System.out.println("<<<<<<<< In getWordsFromString    >>>>>>>>>>>>>>> ");
-		
+
 		int wordsCounter=0;
 		int spaceIndex=0;
 		int length=sentence.length();
@@ -421,7 +420,7 @@ public class Solution {
 		{
 			if(sentence.charAt(i)==' ' || i+1==length)
 			{
-				wordsArray[wordsCounter++]=getSubString(sentence, spaceIndex,i+1); //get each word as substring
+				//wordsArray[wordsCounter++]=wordsArray.getSubString(sentence, spaceIndex,i+1); //get each word as substring
 				spaceIndex=i+1; //increment space index
 			}
 		}
@@ -460,49 +459,49 @@ public class Solution {
 		return 0;
 	}
 
-
-	public boolean isNumberPrime(int givenNum) {
-		
-		if (givenNum%2==0) {
-			System.out.println("Number: "+givenNum+ " is even >> NOT a prime");
-			return false;	   
+	public boolean isPrime(int n) 
+	{
+		if (n <= 1) 
+			return false; 
+		if (n <= 3) 
+			return true; 
+		// This is checked so that we can skip 
+		// middle five numbers in below loop 
+		if (n % 2 == 0 || n % 3 == 0) {
+			System.out.println("\nNumber: "+n+ " is NOT a prime divisible by 2 or 3");
+			return false; 
 		}
-		if (givenNum<0) givenNum*=-1;	//if range includes negatives, no need to run twice
-		if (givenNum<8) {
-			System.out.println("Number: "+givenNum+ " is a single digit prime");
-			return true;	   
-		}
 
-		for(int i=3; i<=givenNum/2; i+=2) {
 
-			if(givenNum%i==0) {
-				if(showDetails) System.out.println("\n Dividing  "+givenNum+ " by: "+i+"... is NOT a prime");
-				return false;	
+		for (int i = 5,j=1; i * i <= n; i = i + 6,j++) {
+			System.out.println("\n Iteration # "+j);
+			if (n % i == 0 || n % (i + 2) == 0) {
+				System.out.println("\nNumber: "+n+ " is NOT a prime");
+				return false; 
 			}
 		}
-		System.out.println("\n Yeah! Number: "+givenNum+ " is prime");
-		return true;
-	}
-
+		System.out.println("\n Yeah! Number: "+n+ " is prime");
+		return true; 
+	} 
 	// divider number should be half of the given and odd
 	// recursive example
-	public void isNumberPrimeRecursive(int givenNum, int dividerNum) {
+	public boolean isNumberPrimeRecursive(int givenNum, int dividerNum) {
 		System.out.println("<<<<<<<< In   isNumberPrimeRecursive  >>>>>>>>>>>>>>> ");
-		
+
 		if (givenNum%2==0) {
 			if(showDetails) System.out.println("\n Number: "+givenNum+ " is even!! hence NOT a prime");
-			return;	   
+			return false;	   
 		}
 
-		if (dividerNum<3) {
+		if (dividerNum ==(givenNum/2)) {
 			System.out.println("\n Yeah! Number: "+givenNum+ " is a prime");
-			return;
+			return false;
 		}
 		if(givenNum%dividerNum==0) {
-			System.out.println("\n Dividing  "+givenNum+ " by: "+dividerNum+"... is NOT a prime");
-			return;	
+			System.out.println("\n Number  "+givenNum+ "... is NOT a prime!");
+			return false;	
 		}
-		isNumberPrimeRecursive(givenNum, dividerNum-2);
+		return isNumberPrimeRecursive(givenNum, dividerNum-2);
 	}
 
 	public void stringManipulation() {
@@ -523,7 +522,7 @@ public class Solution {
 		System.out.println("222222 myName >>" +myName);
 		String onlyName=myName;
 		System.out.println("33333 onlyName >>>" +onlyName);
-		
+
 		System.out.println("\n myName == onlyName true? :" + (myName == onlyName)); 
 		System.out.println("\n myName.equals(onlyName)? : " + myName.equals(onlyName) );
 
@@ -535,100 +534,306 @@ public class Solution {
 		System.out.println(myName.equals(onlyName) );
 
 	}
-		
-	  public void printAllPossibleOrderedPairs(int[] items) {
-		  System.out.println("<<<<<<<< In  printAllPossibleOrderedPairs   >>>>>>>>>>>>>>> ");
-		  
-		  System.out.println("Printing all Pairs: ///////////");
-		    
-		  for (int firstItem : items) {
-		    	
-		        for (int secondItem : items) {
-		        	
-		            System.out.println(firstItem + ", " + secondItem+" -- ");
-		        }
-		    }
+
+	public void printAllPossibleOrderedPairs(int[] items) {
+		System.out.println("<<<<<<<< In  printAllPossibleOrderedPairs   >>>>>>>>>>>>>>> ");
+
+		System.out.println("Printing all Pairs: ///////////");
+
+		for (int firstItem : items) {
+
+			for (int secondItem : items) {
+
+				System.out.println(firstItem + ", " + secondItem+" -- ");
+			}
 		}
-	  
-	  public void countWords() throws IOException{
-		  System.out.println("<<<<<<<< In  countWords   >>>>>>>>>>>>>>> ");
-		  
-			BufferedReader reader = new BufferedReader(new FileReader(new File("input.txt")));
+	}
 
-		        String inputLine = null;
-		        HashMap <String, Integer> dictionary = new HashMap<String, Integer> ();
-		        //Map dictionary = new Hashtable();         
+	public int countWords(String inputLine){
+		System.out.println("<<<<<<<< In  countWords   >>>>>>>>>>>>>>> ");
+		int val=0;
+		HashMap <String, Integer> dictionary = new HashMap<String, Integer> ();
+		//Map dictionary = new Hashtable();         
+		// Split the input line.
+		String[] words = inputLine.split("\\s+");             
 
-		        while((inputLine = reader.readLine()) != null) {
+		for(String word: words) {
+			// Remove any commas and dots.
+			word = word.replace(".", "");
+			word = word.replace(",", "");
 
-		            // Split the input line.
-		            String[] words = inputLine.split("\\s+");             
+			if(dictionary.containsKey(word)) {
+				val = dictionary.get(word);
+				dictionary.put(word, val + 1);
+			}
+			else
+				dictionary.put(word, 1);			
+		}
+		// Printing all words stored in the map.
+		for(String key: dictionary.keySet()) {
 
-		            // Ignore empty lines.
-		            if(inputLine.equals(""))
-		                continue;            
+			System.out.println(key + ": " + dictionary.get(key));   
+		}
+		System.out.println("Number of words is: " +val); 
+		return val;
+			
+	}
 
-		            for(String word: words) {
+	public void countWordsReadLine() throws IOException{
+		System.out.println("<<<<<<<< In  countWords   >>>>>>>>>>>>>>> ");
 
-		                // Remove any commas and dots.
-		                word = word.replace(".", "");
-		                word = word.replace(",", "");
-		                
-		                if(dictionary.containsKey(word)) {
+		BufferedReader reader = new BufferedReader(new FileReader(new File("input.txt")));
 
-		                    Integer val = dictionary.get(word);
-		                    dictionary.put(word, val + 1);
-		                }
-		                else
-		                    dictionary.put(word, 1);
-		            }
-		        }
-		         
-		        // Printing all words stored in the map.
-		        for(String key: dictionary.keySet())
+		String inputLine = null;
+		HashMap <String, Integer> dictionary = new HashMap<String, Integer> ();
+		//Map dictionary = new Hashtable();         
 
-		            System.out.println(key + ": " + dictionary.get(key));        
-		         
-		        try {
-					reader.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		while((inputLine = reader.readLine()) != null) {
+
+			// Split the input line.
+			String[] words = inputLine.split("\\s+");             
+
+			// Ignore empty lines.
+			if(inputLine.equals("")) continue;            
+
+			for(String word: words) {
+
+				// Remove any commas and dots.
+				word = word.replace(".", "");
+				word = word.replace(",", "");
+
+				if(dictionary.containsKey(word)) {
+					Integer val = dictionary.get(word);
+					dictionary.put(word, val + 1);
 				}
-		    }
+				else
+					dictionary.put(word, 1);
+			}
+		}
+		// Printing all words stored in the map.
+		for(String key: dictionary.keySet())
 
-	  public String[] findFirstAnagram(String [] input) {
-		  System.out.println("<<<<<<<< In  findFirstAnagram   >>>>>>>>>>>>>>> ");
-		  
-		  for(int i=0; i < input.length; i++ ) {
-			  		 
-			  
-		  }
-		  
+			System.out.println(key + ": " + dictionary.get(key));        
+
+		try {
+			reader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//anagrams 
+	public String[] findFirstAnagram(String [] input) {
+		System.out.println("<<<<<<<< In  findFirstAnagram   >>>>>>>>>>>>>>> ");
+
+		for(int i=0; i < input.length; i++ ) {
+			//TODO write code here
+		}
 		return input;		  		  
-	  }
-	  
-	  public boolean compareWordContent(String first, String second) {
-		  System.out.println("<<<<<<<< In  compareWordContent   >>>>>>>>>>>>>>> ");
+	}
 
-		  if (first.length()!=second.length()) {
-			  return false;
-		  }
-	        char[] charArrayFirst = first.toCharArray();
-	        Arrays.sort(charArrayFirst);
-	        
-	        char[] charArraySecond = second.toCharArray();
-	        Arrays.sort(charArraySecond);	        
-	        
-	        first= String.valueOf(charArrayFirst);	        
-	        second= String.valueOf(charArraySecond);
-		  		
-		 if(first.equalsIgnoreCase(second)) {
-			  System.out.println("\n Two strings are now the same: " +first);
-			 return true;
-		 }	
-		 System.out.println("\n Two strings are not the same: first is" +first+"Second is "+second);
-		  return false;		  		  		  
-	  }
-	  
+	protected boolean isAnagramWithSort(String string1, String string2) {
+		if (string1.length() != string2.length()) {
+			return false;
+		}
+		char[] a1 = string1.toCharArray();
+		char[] a2 = string2.toCharArray();
+		Arrays.sort(a1);
+		Arrays.sort(a2);
+		boolean isAnagram= Arrays.equals(a1, a2);
+		if (isAnagram) {
+			System.out.println("\nStrings "+string1+" and "+string2+" are anagrams\n");
+		}
+		else {
+			System.out.println("\nStrings "+string1+" and "+string2+" are NOT anagrams\n");
+		}
+		return isAnagram;
+	}
+
+	// find if a word is present in the sentence
+
+	public boolean findWordInSentence(String word, String sentence, boolean caseSensitive) {
+
+		if(word.length()<1 ||sentence.length()<1) return false;
+		if(word.length() > sentence.length()) return false;
+		if(!caseSensitive) {
+			word = word.toUpperCase();
+			sentence = sentence.toUpperCase();						
+		}
+		String strSentence = sentence;
+		int intIndex = strSentence.indexOf(word);
+
+		if(intIndex == - 1) {
+			System.out.println("String "+word+" not found in sentence: "+sentence);
+			return false;
+		} else {
+			System.out.println("String "+word+" found in sentence: "+sentence);
+			return true;
+		}
+	}
+	// check if two strings have the same letters in any order
+	public boolean compareWordContent(String first, String second) {
+		System.out.println("<<<<<<<< In  compareWordContent   >>>>>>>>>>>>>>> ");
+
+		if (first.length()!=second.length()) {
+			return false;
+		}
+		char[] charArrayFirst = first.toCharArray();
+		Arrays.sort(charArrayFirst);
+
+		char[] charArraySecond = second.toCharArray();
+		Arrays.sort(charArraySecond);	        
+
+		first= String.valueOf(charArrayFirst);	        
+		second= String.valueOf(charArraySecond);
+
+		if(first.equalsIgnoreCase(second)) {
+			System.out.println("\n Two strings are now the same: " +first);
+			return true;
+		}	
+		System.out.println("\n Two strings are not the same: first is" +first+"Second is "+second);
+		return false;		  		  		  
+	}
+
+	public void enqueueDequeueExample(){
+		//A Queue in Java is just an interface.
+		//LinkedList class implements Queue interface.
+
+		Queue<String> citiesQueue = new LinkedList<>();
+
+		citiesQueue.add("New York");
+		citiesQueue.add("Seattle");
+		citiesQueue.add("Edmonds");
+		citiesQueue.add("Moscow");
+		citiesQueue.add("Tokyo");
+
+		System.out.println("CitiesQueue : " + citiesQueue);
+		System.out.println("Size of waitingQueue : " + citiesQueue.size());
+		// Removing an element from the Queue using remove() 
+		//(The Dequeue operation)
+		// The remove() method throws NoSuchElementException if the Queue is empty
+		if(!citiesQueue.isEmpty()) {
+			String name = citiesQueue.remove();
+			System.out.println("Removed from Queue : " + name + 
+					" | New CitiesQueue : " + citiesQueue);
+			{
+
+				// Removing element from the Queue using poll()
+				// NOTE: poll() method returns null if the Queue is empty.
+				name = citiesQueue.poll();
+				System.out.println("Removed from Queue : " + name +
+						" | New CitiesQueue : " + citiesQueue);
+			}
+		}
+	}
+	// =================== PALINDROMES = reads back and forth same===============
+	//In this approach, we'll simply iterate over the input string to find all the substrings. 
+	//At the same time, we'll check whether the substring is a palindrome or not:
+	public Set<String> findAllPalindromesUsingBruteForceApproach(String input) {
+		Set<String> palindromes = new HashSet<>();
+		for (int i = 0; i < input.length(); i++) {
+			for (int j = i + 1; j <= input.length(); j++) {
+				if (isPalindrome(input.substring(i, j))) {
+					palindromes.add(input.substring(i, j));
+				}
+			}
+		}
+		return palindromes;
+	}
+
+	private Set<String> findPalindromes(String input, int low, int high) {
+		Set<String> result = new HashSet<>();
+		while (low >= 0 && high < input.length() && input.charAt(low) == input.charAt(high)) {
+			result.add(input.substring(low, high + 1));
+			low--;
+			high++;
+		}
+		return result;
+	}
+	// this is for the whole string compare
+	private boolean isPalindrome(String input) {
+		StringBuilder plain = new StringBuilder(input);
+		StringBuilder reverse = plain.reverse();
+		return (reverse.toString()).equals(input);
+	}
+
+	//centralization approach: consider each character as the pivot and
+	// expand if the characters on the left and right side match, qualifying 
+	// the string to be a palindrome, we continue to the next character.
+	// 
+	// demonstration wherein we'll consider each character as the center of a palindrome:
+
+	public Set<String> findAllPalindromesUsingCenter(String input) {
+		Set<String> palindromes = new HashSet<>();
+		for (int i = 0; i < input.length(); i++) {
+			palindromes.addAll(findPalindromes(input, i, i + 1));
+			palindromes.addAll(findPalindromes(input, i, i));
+		}
+		return palindromes;
+	}
+
+	// =================== END PALINDROMES ================
+
+	public String replaceText(String text, HashMap<String, String> namesMap){
+
+		String firstName = namesMap.get("[first name]");  
+		String lastName = namesMap.get("[last name]");
+
+		text = text.replace("[first name]", firstName);
+		text = text.replace("[last name]", lastName);
+
+		//FOR LOOP
+		System.out.println("For Loop:");
+		for (Map.Entry<String, String> entry : namesMap.entrySet()) {
+			System.out.println("Key: "+entry.getKey() + " & Value: " + entry.getValue());
+		}
+
+		//WHILE LOOP & ITERATOR
+		System.out.println("While Loop:");
+		Iterator<Entry<String, String>> mapIterator = namesMap.entrySet().iterator();
+		while (mapIterator.hasNext()) {
+			Map.Entry<String, String> entry = (Entry<String, String>) mapIterator.next();
+			System.out.println("Key: "+entry.getKey() + " & Value: " + entry.getValue());
+		}     
+		return text;            
+	}
+
+
+
+	public void switchMethod(){
+		int i=2;
+		switch(i)
+		{
+		case 0:
+			System.out.println("Case0 ");
+		case 1:
+			System.out.println("Case1 ");
+		case 2:
+			System.out.println("Case2 ");
+		case 3:
+			System.out.println("Case3 ");
+		case 4:
+			System.out.println("Case4 ");
+		case 5:
+			System.out.println("Case5 ");
+
+		default:
+			System.out.println("Default ");
+		}
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

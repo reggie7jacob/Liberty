@@ -45,7 +45,6 @@ public class GeoRestMap {
 		}
 	}
 
-
 	/**
 	 *
 	 * @return string of states info
@@ -53,7 +52,6 @@ public class GeoRestMap {
 	 * I decided NOT to strip the data, just verify and returned data with message
 	 *
 	 */
-
 	public String getGeoData(String httpRequesType) {
 
 		StringBuilder result;
