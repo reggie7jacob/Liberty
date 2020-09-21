@@ -1,5 +1,4 @@
 package georest;
-import org.testng.annotations.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
@@ -17,18 +16,20 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
-
+///////////////////////////// Develop Branch /////////////////////
 public class Solution {
 
 	boolean showDetails=false;
 	//char myChar='v';
 	//int numberOfStairs=5;
 	//@Parameters(numberOfStairs)
-	//@Test	
+
 	public void printStairs(int numberOfStairs){ //2
 		System.out.println("<<<<<<<< In printStairs    >>>>>>>>>>>>>>> ");
 
-		if (numberOfStairs<1)  System.out.println("Illegal input, needs to be at least 1");
+		if (numberOfStairs<1||numberOfStairs>30) {
+			System.out.println("Error: Number of stairs has to be between 1-30");
+		}
 
 		else {
 			for (int i = 0; i < numberOfStairs; i++) {
@@ -39,13 +40,11 @@ public class Solution {
 				for (int k = 0; k <= i; k++) {
 					System.out.print("# ");
 				}
-				System.out.println();
 			}
+			System.out.println("\n >>> Printing "+numberOfStairs+" stairs");
 		}
-		System.out.println("\n >>> Printing Stairs-5");
 	}
 
-	@Test
 	public int reverseNumber(int number){  //1357
 		System.out.println("<<<<<<<< In  reverseNumber   >>>>>>>>>>>>>>> ");
 
@@ -259,6 +258,25 @@ public class Solution {
 		return reversed;
 	}
 
+	
+	public boolean findStringInSentence(String w, String s) {
+		System.out.println("<<<<<<<< In   indStringInSentence  >>>>>>>>>>>>>>> ");
+		if (s == null || s.isEmpty()) return false;
+		if (w == null || w.isEmpty()) return false;
+		String[] split = s.split(" ");
+
+		for (int i= 0; i < split.length - 1;  i++) {
+			
+			if(w== (split[i])) {
+				System.out.println("Found string "+w+ "in sentence "+s);
+				return true;
+			}
+			
+		}
+
+		return false;
+	}
+
 
 	public String reverseSentence(String s) {
 		System.out.println("<<<<<<<< In   reverseSentence  >>>>>>>>>>>>>>> ");
@@ -408,42 +426,6 @@ public class Solution {
 		// return new sorted string 
 		return new String(tempArray); 
 	} 
-
-	public char[][] getWordsFromString(String sentence){
-		System.out.println("<<<<<<<< In getWordsFromString    >>>>>>>>>>>>>>> ");
-
-		int wordsCounter=0;
-		int spaceIndex=0;
-		int length=sentence.length();
-		char wordsArray[][]=new char[getNumberOfWords(sentence)][]; 
-		for(int i=0;i<length;i++)
-		{
-			if(sentence.charAt(i)==' ' || i+1==length)
-			{
-				//wordsArray[wordsCounter++]=wordsArray.getSubString(sentence, spaceIndex,i+1); //get each word as substring
-				spaceIndex=i+1; //increment space index
-			}
-		}
-		return  wordsArray; //return the 2 dimensional char array
-	}
-
-
-	/*    public String joinedString (String stringArray){
-
-      String joinedString="";
-      ArrayList <String> stringArrayList=new ArrayList<String>();
-      int endString;
-      //int [] positions=new int[25];
-
-        for (String str : stringArrayList){
-            endString=str.length();
-            joinedString= joinedString.concat(stringArray);
-        }
-        return joinedString;
-    }*/
-
-	//perfect integers are: 0, 6, 28, 496, 8128, 
-
 
 	// find first missing next number// given 1,2,3,4,6 it will return 5
 	public int findMissing(int[] numbers) {

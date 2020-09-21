@@ -7,6 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+///////////////////////////// Develop Branch /////////////////////
+
 public class SolutionTest {
 	
 	Solution solutions;
@@ -36,13 +38,19 @@ public class SolutionTest {
   }
   
   @Test
+  public void findStringVrezhInSentence() {
+		System.out.println("\n --  findWordInSentenceTest-- ;"); 
+		 Assert.assertTrue(solutions.findStringInSentence("Vrezh","I believe Vrezh is here"));
+  }
+  
+  @Test
   public void findWordJohnInSentenceTest() {
 		System.out.println("\n --  findWordInSentenceTest-- ;"); 
 		 Assert.assertTrue(solutions.findWordInSentence("John","My friend John is here",true));
   }
   
   @Test
-  public void wordJohnInSentenceTest() {
+  public void findJohnInSentenceCaseInsensitiveTest() {
 		System.out.println("\n --  findWordInSentenceTest-- ;"); 
 		 Assert.assertTrue(solutions.findWordInSentence("John","My friend gJohN is here",false));
   }
@@ -101,16 +109,19 @@ public class SolutionTest {
 
   @Test
   public void getNumberOfWordsTest() {
+	  ///TODO
    System.out.println("Test not implemented");
   }
 
   @Test
   public void getSubStringTest() {
+	  ///TODO
    System.out.println("Test not implemented");
   }
 
   @Test
   public void getWordsFromStringTest() {
+	  ///TODO
    System.out.println("Test not implemented");
   }
 
@@ -174,9 +185,13 @@ public class SolutionTest {
   }
 
   @Test
-  public void printStairsTest() {
-		System.out.println("\n >>> Printing Stairs-5");
+  public void printFiveStairsTest() {
 		solutions.printStairs(5);
+  }
+  
+  @Test
+  public void print31StairsTest() {
+		solutions.printStairs(31);
   }
 
   @Test
