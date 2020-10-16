@@ -7,7 +7,9 @@
 <classes>
 
 <class name="georest.SolutionTest" />
-
+<class name="geoRestTest.GeoRestArrayTest" />
+<class name="geoRestTest.GeoRestMapTest" />
+ 
 </classes> 
 
 </test>

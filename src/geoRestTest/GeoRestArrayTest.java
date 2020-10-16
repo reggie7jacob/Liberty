@@ -22,7 +22,7 @@ public class GeoRestArrayTest {
 
 		Assert.assertFalse(restApiArrayTests.findStateInfo("Alab@aMa", Messages.getString("httpURL")));
 	}
-	
+
 	@Test
 	public void EmptyCharTest() {	  
 
@@ -53,10 +53,10 @@ public class GeoRestArrayTest {
 	public void testSearchNY() {
 		Assert.assertTrue(restApiArrayTests.findStateInfo("NY", Messages.getString("httpSearchURL")));
 	}
-	
+
 	@Test
 	public void testSearchFrance() {
 		Assert.assertFalse(restApiArrayTests.findStateInfo("France", Messages.getString("httpSearchURL")));
 	}
-	
+
 }

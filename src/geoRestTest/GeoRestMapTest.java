@@ -10,33 +10,33 @@ import org.testng.Assert;
 public class GeoRestMapTest {
 
 	GeoRestMap geoRestApiTests;
-	
-  @BeforeTest
-  public void beforeTest() {
+
+	@BeforeTest
+	public void beforeTest() {
 		System.out.println("--------Starting Rest API via Map Test ------- \n ");  
 		geoRestApiTests =new GeoRestMap();
-  }
-  
+	}
+
 	@Test
 	public void getOkHttpCodeTest() {	  
 		Assert.assertEquals(geoRestApiTests.getHttpCode(Messages.getString("httpURL"),"GET"), 200);
 	}
-	
+
 	@Test
 	public void notAllowdHttpCodeTest() {	  
 		Assert.assertEquals(geoRestApiTests.getHttpCode(Messages.getString("httpURL"),"PUT"), 405);
 	}
-	
+
 	@Test
 	public void invalidURLTest() {	  
 		Assert.assertEquals(geoRestApiTests.getHttpCode("http:\\notReallyCorrect.zcom","GET"), -1);
 	}
-	
+
 	@Test
 	public void IllegalCharTest() {	  
 		Assert.assertFalse(geoRestApiTests.findStateInfo("Alab@aMa", Messages.getString("httpURL")));
 	}
-	
+
 	@Test
 	public void EmptyCharTest() {	  
 		Assert.assertFalse(geoRestApiTests.findStateInfo("", Messages.getString("httpURL")));
@@ -66,7 +66,7 @@ public class GeoRestMapTest {
 	public void testSearchNY() {
 		Assert.assertTrue(geoRestApiTests.findStateInfo("NY", Messages.getString("httpSearchURL")));
 	}
-	
+
 	@Test
 	public void testSearchNewYork() {
 		Assert.assertTrue(geoRestApiTests.findStateInfo("New York", Messages.getString("httpSearchURL")));

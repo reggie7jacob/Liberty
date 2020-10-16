@@ -1,5 +1,6 @@
 package georest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 //import java.util.Map;
 import java.util.Set;
@@ -44,7 +45,6 @@ public class SolutionTest {
 		Assert.assertTrue(solutions.findStringInSentence("Vrezh","I believe Vrezh is here"));
 	}
 
-
 	@Test
 	public void noWordInSentenceTest() {
 
@@ -66,19 +66,18 @@ public class SolutionTest {
 		}
 		else System.out.println("\n No Palindromes found;"); 
 	}
-			
+
 	@Test
 	public void isWordPalindromeTest() {
-		
+
 		Assert.assertTrue(solutions.isPalindrome("racecar"));
 	}
 
 	@Test
 	public void isWordNotPalindromeTest() {
-		
+
 		Assert.assertFalse(solutions.isPalindrome("raceBcar"));
 	}
-
 
 	@Test
 	public void findWordJohnInSentenceTest() {
@@ -105,8 +104,6 @@ public class SolutionTest {
 		System.out.println("\n --  Number of words is: " +numberOfWords); 
 	}
 
-
-
 	@Test
 	public void fiboTailRecursionTest() {
 		int fibo = 9;
@@ -129,7 +126,6 @@ public class SolutionTest {
 		System.out.println("\nIn fibonacciRecursive Test for position: "+positionNum);
 		int fibNumRecursive=solutions.fibonacciRecursive(positionNum, 0,1);
 		System.out.println("Recursive Fibonacci number for position: "+positionNum+" is "+fibNumRecursive);
-
 	}
 
 	@Test
@@ -138,7 +134,6 @@ public class SolutionTest {
 		String [] anagramsOut;
 		anagramsOut = solutions.findFirstAnagram(anagrams);
 		System.out.println("\n Anagrams result is " + anagramsOut);
-
 	}
 
 	@Test
@@ -147,7 +142,17 @@ public class SolutionTest {
 		int middleIndex=solutions.findMiddleIndex(intArray);
 		System.out.println("\nMiddle Index of 1,2,3,4,5,7,8 is : "+middleIndex+"\n");
 	}
-
+	
+	@Test
+	public void removeDuplicatesTest() {
+		ArrayList<Object> arrayList=new ArrayList<Object> ();
+		arrayList.add("Vrezh");
+		arrayList.add(10.3);
+		solutions.removeDuplicates(arrayList);
+		System.out.println("\n");
+	}
+	
+	
 	@Test
 	public void findMissingNumberTest() {
 
@@ -156,7 +161,6 @@ public class SolutionTest {
 		System.out.println("\n .... missingInt = "+missingInt+"\n");
 	}
 
-
 	@Test
 	public void reverseArrayTest() {
 		///TODO System.out.println("Test not implemented");
@@ -164,27 +168,42 @@ public class SolutionTest {
 
 	@Test
 	public void isNumber7825PrimeTest() {
-		int givenNum=7825;
-		solutions.isPrime(givenNum);
+		Assert.assertFalse (solutions.isPrime(7825));
+	}
+
+	@Test
+	public void findFactorialTest() {
+
+		Assert.assertTrue(solutions.findFactorial(5)==120);
+	}
+
+	@Test
+	public void isArmstrongNumberTest() {
+
+		Assert.assertTrue(solutions.isArmstrongNumber(153));
 	}
 
 	@Test
 	public void isNumber7827PrimeTest() {
 		int givenNum=7827;
-		solutions.isPrime(givenNum);
+		Assert.assertFalse (solutions.isPrime(givenNum));
 		//for (int i=givenNum;i>2;i--) {
-		//solutions.isPrime(i);
-		//}		
+		//solutions.isPrime(i);}		
 	}
 	@Test
 	public void is7919PrimeTest() {
 		int givenNum=7919 ;
-		solutions.isPrime(givenNum);
+		Assert.assertTrue (solutions.isPrime(givenNum));
 	}
 	@Test
-	public void isNumberPrimeRecursiveTest() {
+	public void is17Prime_RecursiveTest() {
 		System.out.println("\n --  isNumberPrime--Recursive example-- ;"); 
-		solutions.isNumberPrimeRecursive(15,1);
+		Assert.assertTrue (solutions.isNumberPrimeRecursive(17,2));
+	}
+
+	@Test
+	public void is7827Prime_RecursiveTest() {
+		Assert.assertFalse (solutions.isNumberPrimeRecursive(7827,2));
 	}
 
 	@Test
@@ -260,31 +279,31 @@ public class SolutionTest {
 		System.out.println("\n>>>> >>>> reverseStringStack(\"Vagram is Not Here\")");
 		solutions.reverseStringStack("Vagram is Not Here");
 	}
-	
+
 	@Test
 	public void parenthesisMatchTest() {
 		System.out.println("\n>parenthesisMatchTest");
 		Assert.assertTrue (solutions.checkIfParenthesisMatch("((X+Y)) this is a (match)" , '(', ')'));
 	}
-	
+
 	@Test
 	public void parenthesisDoNotMatchTest() {
 		System.out.println("\n>parenthesisDoNotMatchTest");
 		Assert.assertFalse (solutions.checkIfParenthesisMatch("((X+Y))) (Abc abc" , '(', ')'));
 	}
-	
+
 	@Test
 	public void parenthesisDoNotMatchTest2() {
 		System.out.println("\n>parenthesisDoNotMatchTest");
 		Assert.assertFalse (solutions.checkIfParenthesisMatch("((X+Y)) {(((this } is Not a (match}" , '{', '}'));
 	}
-	
+
 	@Test
 	public void parenthesisMatchTest2() {
 		System.out.println("\n>parenthesisMatchTest2");
 		Assert.assertTrue (solutions.checkIfParenthesisMatch("((X+Y)) {(((this is a (match)}" , '{', '}'));
 	}
-	
+
 	@Test
 	public void reverseWithoutSplitTest() {
 		System.out.println("\n>>>> >>>>>  reverseSentence(\"ABC Reverse without split XYZ\")-");

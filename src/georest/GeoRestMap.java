@@ -314,7 +314,7 @@ public class GeoRestMap {
 					}
 				}//END of  state or abbr
 				else {
-					
+
 					System.out.println("Neither stateObjExists or abbrObjExists");
 					return false;
 				}

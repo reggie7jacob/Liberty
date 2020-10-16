@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.File;
 import java.io.InputStreamReader;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -169,14 +169,14 @@ public class Solution {
 		System.out.println(reverse);
 		return reverse;	
 	}
-	
+
 	public boolean checkIfParenthesisMatch(String s, char ParenthOpenType, char ParenthClosedType) {
 
 		Stack<Character> charStack = new Stack<>();		
 		for (int i = 0; i < s.length(); i++) {
-			
+
 			char currentChar = s.charAt(i);
-			
+
 			if (currentChar == ParenthClosedType && charStack.empty()) {
 				System.out.println(" '"+ParenthClosedType+
 						" ' encountererd before matching '"+ParenthOpenType+"' ");
@@ -185,7 +185,7 @@ public class Solution {
 			if (currentChar == ParenthOpenType) charStack.push(currentChar);
 			if (currentChar == ParenthClosedType) charStack.pop();
 		}
-		
+
 		if(charStack.empty()) return true;
 		else return false;
 	}
@@ -222,7 +222,7 @@ public class Solution {
 	}
 
 	public String reverseSentenceWithoutSplit(String s){
-	
+
 		if (s == null || s.isEmpty()) return s;
 
 		int spaceIndex = 0;
@@ -295,8 +295,8 @@ public class Solution {
 		System.out.println("\n<<<<<<<< In   stringManipulation  >>>>>>>>>>>>>>> ");
 
 		char ch[] = {'A','r','r','a','y',' ','t','o',' ','s','t','r','i','n','g',' ','e','x','a','m','p','l','e'};
-		 //We can copy a char array to a string by using copyValueOf() method.
-		 
+		//We can copy a char array to a string by using copyValueOf() method.
+
 		String charToStr = String.copyValueOf(ch);
 		System.out.println("\nCharacters to String: " + charToStr+"\n");
 
@@ -401,7 +401,7 @@ public class Solution {
 		String reverse ="";	
 		//we will not condiser strings with less than 3 char long
 		if(input.length()>2) {
-			
+
 			for(int j = input.length() - 1; j >= 0; j--)
 			{
 				reverse = reverse + input.charAt(j);
@@ -413,7 +413,7 @@ public class Solution {
 		}
 		return false;
 	}
-	
+
 	// find all palindromes in the sentence
 	public Set<String>  findPalindromesInSentence(String input) {
 
@@ -435,7 +435,7 @@ public class Solution {
 
 
 	// =================== END PALINDROMES ================END PALINDROMES ==
-	
+
 
 	public String replaceText(String text, HashMap<String, String> namesMap){
 
@@ -528,11 +528,72 @@ public class Solution {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void removeDuplicates(ArrayList<Object> arrList ){
+		arrList.add('a');
+		arrList.add(12);
+		arrList.add('b');
+		arrList.add("Vrezh");
+		arrList.add('a');
+		arrList.add("java");
+		arrList.add(10.3);
+		arrList.add(12);
+		arrList.add("java");
+
+		System.out.println("Before Remove Duplicate elements:"+arrList);
+
+		for(int i=0;i<arrList.size();i++){
+
+			for(int j=i+1;j<arrList.size();j++){
+				
+				if(arrList.get(i).equals(arrList.get(j))){
+					
+					arrList.remove(j);
+					j--;
+				}
+			}
+		}
+		System.out.println("After Removing duplicate elements:"+arrList);
+	}
+
 	//=========================== INTEGERS =========================================
 	//=========================== INTEGERS =========================================
-	
-	
+	// Armstrong Number- positive number equal to sum of cubes of its digits
+	// 0, 1, 153, 370, 371, 407 etc.  Example: 153=1^3 + 5^3 + 3^3
+	public boolean isArmstrongNumber(int n) {
+
+		if (n<0) return false; //need n >=0
+		int current, total=0;
+		int num=n;
+		while (num != 0)
+		{
+			current = num % 10;
+			total = total + current*current*current;
+			if (showDetails) System.out.println("Current number is " +current+" Total is " +total);
+			num /= 10;
+		}
+		if(total == n) {
+			System.out.println(n + " is an Armstrong number");
+			return true;
+		}
+		else
+			System.out.println(n + " is not an Armstrong number");	
+		return false;
+	}
+
+
+	public int findFactorial(int n) {
+
+		if (n<1) return -1; //need n >0
+		int fact=1;
+		for(int i=1;i<=n;i++){    
+			fact=fact*i;    
+		}	
+		System.out.println("Factorial of number "+n+" is " +fact);
+		return fact;		
+	}
+
+
 	// find first missing next number// given 1,2,3,4,6 it will return 5
 	public int findMissingNumber(int[] numbers) {
 		System.out.println("<<<<<<<< In   findMissing  >>>>>>>>>>>>>>> ");
@@ -549,18 +610,14 @@ public class Solution {
 
 	public boolean isPrime(int n) 
 	{
-		if (n <= 1) 
-			return false; 
-		if (n <= 3) 
-			return true; 
-		// This is checked so that we can skip 
-		// middle five numbers in below loop 
+		if (n <= 1) return false; 
+		if (n <= 3) return true; 
+
+		// Check so that we can skip middle five numbers in below loop 
 		if (n % 2 == 0 || n % 3 == 0) {
 			System.out.println("\nNumber: "+n+ " is NOT a prime divisible by 2 or 3");
 			return false; 
 		}
-
-
 		for (int i = 5,j=1; i * i <= n; i = i + 6,j++) {
 			System.out.println("Iteration # "+j);
 			if (n % i == 0 || n % (i + 2) == 0) {
@@ -571,25 +628,25 @@ public class Solution {
 		System.out.println("\nNumber: "+n+ " is prime");
 		return true; 
 	} 
-	// divider number should be half of the given and odd
+
 	// recursive example
 	public boolean isNumberPrimeRecursive(int givenNum, int dividerNum) {
-		System.out.println("<<<<<<<< In   isNumberPrimeRecursive  >>>>>>>>>>>>>>> ");
 
 		if (givenNum%2==0) {
-			if(showDetails) System.out.println("\n Number: "+givenNum+ " is even!! hence NOT a prime");
+			System.out.println("\nNumber: "+givenNum+ " is even: NOT a prime");
 			return false;	   
 		}
 
 		if (dividerNum ==(givenNum/2)) {
-			System.out.println("\n Yeah! Number: "+givenNum+ " is a prime");
-			return false;
+			System.out.println("\nNumber: "+givenNum+ " is a prime");
+			return true;
 		}
 		if(givenNum%dividerNum==0) {
-			System.out.println("\n Number  "+givenNum+ "... is NOT a prime!");
+			System.out.println("\nNumber  "+givenNum
+					+ " is divisible by "+dividerNum+" NOT a prime");
 			return false;	
 		}
-		return isNumberPrimeRecursive(givenNum, dividerNum-2);
+		return isNumberPrimeRecursive(givenNum, dividerNum+1);
 	}
 
 
