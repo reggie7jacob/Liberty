@@ -162,11 +162,6 @@ public class SolutionTest {
 	}
 
 	@Test
-	public void reverseArrayTest() {
-		///TODO System.out.println("Test not implemented");
-	}
-
-	@Test
 	public void isNumber7825PrimeTest() {
 		Assert.assertFalse (solutions.isPrime(7825));
 	}
