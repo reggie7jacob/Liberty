@@ -1,4 +1,5 @@
 package georest;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
@@ -10,7 +11,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Stack;
-//import java.util.Map;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -27,16 +27,15 @@ public class Solution {
 
 	//================anagrams ======= =anagrams ======anagrams =====///
 
-	public String[] findFirstAnagram(String [] input) {
-		System.out.println("<<<<<<<< In  findFirstAnagram   >>>>>>>>>>>>>>> ");
 
-		for(int i=0; i < input.length; i++ ) {
-			//TODO write code here
-		}
-		return input;		  		  
-	}
 
 	protected boolean isAnagramWithSort(String string1, String string2) {
+		
+		if (string1 == null||string2 == null)  {
+			System.out.println("!!!!!!!Null was passed");
+			return false;
+		}
+		
 		if (string1.length() != string2.length()) {
 			return false;
 		}
@@ -59,6 +58,12 @@ public class Solution {
 	public int countNumberOfWords(String sentence)
 	{
 		System.out.println("<<<<<<<< In  getNumberOfWords   >>>>>>>>>>>>>>> ");
+		
+		if (sentence == null)  {
+			System.out.println("!!!!!!!Null was passed");
+			return -1;
+		}
+		if(sentence.length()==1) return 1;
 		int counter=0;
 		for(int i=0;i<sentence.length();i++)
 		{
@@ -72,6 +77,13 @@ public class Solution {
 	public int countWords(String inputLine){
 		System.out.println("<<<<<<<< In  countWords   >>>>>>>>>>>>>>> ");
 
+		
+		if (inputLine == null)  {
+			System.out.println("!!!!!!!Null was passed");
+			return -1;
+		}
+		if(inputLine.length()==1) return 1;
+		
 		int val=0;
 		int countWords=0;
 
@@ -124,6 +136,11 @@ public class Solution {
 
 	public boolean findWordInSentence(String word, String sentence, boolean caseSensitive) {
 
+		if (word == null||sentence == null)  {
+			System.out.println("!!!!!!!Null was passed");
+			return false;
+		}
+		
 		if(word.length()<1 ||sentence.length()<1) return false;
 		if(word.length() > sentence.length()) return false;
 		if(!caseSensitive) {
@@ -144,6 +161,11 @@ public class Solution {
 
 	public String reverseStringRecursive(String str){
 
+		if (str == null)  {
+			System.out.println("!!!!!!!Null was passed");
+			return "Error: Null was passed";
+		}
+		
 		String reverse = "";
 		if(str.length() < 2){
 			return str;
@@ -158,20 +180,57 @@ public class Solution {
 
 	public String reverseString(String str){
 		System.out.println("<<<<<<<< In  reverseString   >>>>>>>>>>>>>>> ");
-		if (str.length()<2) return str;
-		String reverse = "";
-
-		for(int i = str.length() - 1; i >= 0; i--)
-		{
-			reverse = reverse + str.charAt(i);
+		if (str == null)  {
+			System.out.println("!!!!!!!Null was passed");
+			return "";
 		}
-		System.out.println("Reversed string is:");
-		System.out.println(reverse);
-		return reverse;	
+		try {
+			if (str.length()<2) return str;
+			String reverse = "";
+
+			for(int i = str.length() - 1; i >= 0; i--)
+			{
+				reverse = reverse + str.charAt(i);
+			}
+			System.out.println("Reversed string is:");
+			System.out.println(reverse);
+			return reverse;
+		} catch (NullPointerException e) {
+			System.out.println("Null was passed instead of a string");
+			e.printStackTrace();
+			return "";
+		}	
+	}
+
+	public String reverseStringStack(String s) {
+		
+		System.out.println("<<<<<<<< In  reverseString   >>>>>>>>>>>>>>> ");
+		if (s == null)  {
+			System.out.println("!!!!!!!Null was passed");
+			return "";
+		}
+		if (s.length()==1) return s;
+		
+		Stack<Character> charStack = new Stack<>();
+		String reversed = "";
+		for (int i = 0; i < s.length(); i++) {
+			char ch = s.charAt(i);
+			charStack.push(ch);
+		}
+
+		for (int i = 0; i < s.length(); i++) {
+			char ch = charStack.pop();
+			reversed += ch;		}
+		System.out.println("The reversed string by Stack is:  " + reversed);
+		return reversed;
 	}
 
 	public boolean checkIfParenthesisMatch(String s, char ParenthOpenType, char ParenthClosedType) {
 
+		if (s == null||s.length()<2)  {
+			return false;
+		}
+		
 		Stack<Character> charStack = new Stack<>();		
 		for (int i = 0; i < s.length(); i++) {
 
@@ -189,23 +248,6 @@ public class Solution {
 		if(charStack.empty()) return true;
 		else return false;
 	}
-
-	public String reverseStringStack(String s) {
-
-		Stack<Character> charStack = new Stack<>();
-		String reversed = "";
-		for (int i = 0; i < s.length(); i++) {
-			char ch = s.charAt(i);
-			charStack.push(ch);
-		}
-
-		for (int i = 0; i < s.length(); i++) {
-			char ch = charStack.pop();
-			reversed += ch;		}
-		System.out.println("The reversed string by Stack is:  " + reversed);
-		return reversed;
-	}
-
 
 	public String reverseSentence(String s) {
 		System.out.println("<<<<<<<< In   reverseSentence  >>>>>>>>>>>>>>> ");
@@ -246,7 +288,9 @@ public class Solution {
 
 	// length of substring with non repeating chars
 	public int lengthOfLongestSubstring(String s) {
+		
 		System.out.println("<<<<<<<< In   lengthOfLongestSubstring  >>>>>>>>>>>>>>> ");
+		if (s == null) return -1;
 		if (s.length()<2) return s.length();
 
 		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
@@ -268,6 +312,7 @@ public class Solution {
 	public char[] getSubString(String sentence,int start,int end){ 
 		//method to give substring, replacement of String.substring() 
 		System.out.println("<<<<<<<< In  getSubString   >>>>>>>>>>>>>>> ");
+		if (sentence==null) return null;
 
 		int counter=0;
 		char charArrayToReturn[]=new char[end-start];
@@ -278,8 +323,12 @@ public class Solution {
 		return charArrayToReturn;
 	}
 
+	
 	public String sortString(String inputString) 
 	{ 
+		if (inputString==null) return "";
+		if(inputString.length()<2) return inputString;
+		
 		// convert input string to char array 
 		char tempArray[] = inputString.toCharArray(); 
 
@@ -336,6 +385,11 @@ public class Solution {
 	public boolean compareWordContent(String first, String second) {
 		System.out.println("<<<<<<<< In  compareWordContent   >>>>>>>>>>>>>>> ");
 
+		if (first == null||second == null)  {
+			System.out.println("!!!!!!!Null was passed");
+			return false;
+		}
+		
 		if (first.length()!=second.length()) {
 			return false;
 		}
@@ -416,11 +470,12 @@ public class Solution {
 
 	// find all palindromes in the sentence
 	public Set<String>  findPalindromesInSentence(String input) {
-
-		if ((input == null || input.isEmpty())) {
-
-		}
 		Set<String> palindromes = new HashSet<>();
+		
+		if ((input == null || input.isEmpty())) {
+			return palindromes;
+		}
+
 		String[] split = input.split(" ");
 
 		for (int i= 0; i < split.length - 1;  i++) {
@@ -704,8 +759,8 @@ public class Solution {
 
 	public HashMap<Integer,Integer> twoSumFast(int[] numbers, int target) {
 		System.out.println("<<<<<<<< In  twoSumNew   >>>>>>>>>>>>>>> ");
-		if(numbers.length<1) {
-			System.out.println("\n Need at least two numbers");
+		if(numbers.length<1 || numbers==null) {
+			System.out.println("\n Invalid Input");
 			return null;
 		}
 
@@ -900,6 +955,31 @@ public class Solution {
 			}
 			System.out.println("\n >>> Printing "+numberOfStairs+" stairs");
 		}
+	}
+	
+	public int smallestDistancePair(int[] nums, int k) {
+	    Arrays.sort(nums);
+	    
+	    int n = nums.length;
+	    int l = 0;
+	    int r = nums[n - 1] - nums[0];
+	    
+	    for (int cnt = 0; l < r; cnt = 0) {
+	        int m = l + (r - l) / 2;
+	        
+	        for (int i = 0, j = 0; i < n; i++) {
+	            while (j < n && nums[j] <= nums[i] + m) j++;
+	            cnt += j - i - 1;
+	        }
+	        
+	        if (cnt < k) {
+	            l = m + 1;
+	        } else {
+	            r = m;
+	        }
+	    }
+	    
+	    return l;
 	}
 
 

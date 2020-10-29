@@ -132,8 +132,8 @@ public class SolutionTest {
 	public void findFirstAnagramTest() {
 		String [] anagrams = {"Vrezh","zherV","abc","cab", "cass"};
 		String [] anagramsOut;
-		anagramsOut = solutions.findFirstAnagram(anagrams);
-		System.out.println("\n Anagrams result is " + anagramsOut);
+		///TODO: anagramsOut = solutions.findFirstAnagram(anagrams);
+		//System.out.println("\n Anagrams result is " + anagramsOut);
 	}
 
 	@Test
@@ -263,6 +263,10 @@ public class SolutionTest {
 	}
 
 	@Test
+	public void reverseNullStringTest() {
+		Assert.assertTrue (solutions.reverseString(null)==null);
+	}
+	@Test
 	public void reverseStringRecursiveTest() {
 		System.out.println("\n reverseStringRecursive\"Vrezh Is  HomE\"->>" 
 				+solutions.reverseStringRecursive("Vrezh Is Home"));
@@ -273,6 +277,12 @@ public class SolutionTest {
 	public void reverseStringStackTest() {
 		System.out.println("\n>>>> >>>> reverseStringStack(\"Vagram is Not Here\")");
 		solutions.reverseStringStack("Vagram is Not Here");
+	}
+
+	
+	@Test
+	public void reverseNullStringStackTest() {
+		Assert.assertTrue (solutions.reverseStringStack(null)==null);
 	}
 
 	@Test
@@ -363,5 +373,19 @@ public class SolutionTest {
 		solutions.switchMethod();
 
 	}
-
+	@Test
+	public void smallestDistancePairTest() {
+		int[] intArray2={1,5,9,13,13,10,11,12,15};
+		int result=solutions.smallestDistancePair(intArray2,8);
+		System.out.println("Smallest  is : " + result);//=2
+	}
+	
+	@Test
+	public void smallestDistancePairTestB() {
+		int[] intArray2={1,5,9,13,19,13,13,19};
+		int result=solutions.smallestDistancePair(intArray2,8);
+		System.out.println("Smallest  is : " + result);//=12
+	}
+	
+	
 }
