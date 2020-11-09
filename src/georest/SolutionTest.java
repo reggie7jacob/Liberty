@@ -41,19 +41,16 @@ public class SolutionTest {
 
 	@Test
 	public void findStringVrezhInSentenceTest() {
-
 		Assert.assertTrue(solutions.findStringInSentence("Vrezh","I believe Vrezh is here"));
 	}
 
 	@Test
 	public void noWordInSentenceTest() {
-
 		Assert.assertFalse(solutions.findStringInSentence("","I believe Vrezh is here"));
 	}
 
 	@Test
 	public void nullInSentenceTest() {
-
 		Assert.assertFalse(solutions.findStringInSentence(null,"I believe Vrezh is here"));
 	}
 
@@ -69,13 +66,11 @@ public class SolutionTest {
 
 	@Test
 	public void isWordPalindromeTest() {
-
 		Assert.assertTrue(solutions.isPalindrome("racecar"));
 	}
 
 	@Test
 	public void isWordNotPalindromeTest() {
-
 		Assert.assertFalse(solutions.isPalindrome("raceBcar"));
 	}
 
@@ -150,12 +145,10 @@ public class SolutionTest {
 		arrayList.add(10.3);
 		solutions.removeDuplicates(arrayList);
 		System.out.println("\n");
-	}
-	
+	}	
 	
 	@Test
 	public void findMissingNumberTest() {
-
 		int [] numbers={1,2,3,4,5,7};
 		int missingInt=solutions.findMissingNumber(numbers);
 		System.out.println("\n .... missingInt = "+missingInt+"\n");
@@ -168,13 +161,11 @@ public class SolutionTest {
 
 	@Test
 	public void findFactorialTest() {
-
 		Assert.assertTrue(solutions.findFactorial(5)==120);
 	}
 
 	@Test
 	public void isArmstrongNumberTest() {
-
 		Assert.assertTrue(solutions.isArmstrongNumber(153));
 	}
 
@@ -264,13 +255,14 @@ public class SolutionTest {
 
 	@Test
 	public void reverseNullStringTest() {
-		Assert.assertTrue (solutions.reverseString(null)==null);
+		//Assert.assertTrue (solutions.reverseString(null)==null);
+		Assert.assertTrue (solutions.reverseString(null)=="");
 	}
+	
 	@Test
 	public void reverseStringRecursiveTest() {
 		System.out.println("\n reverseStringRecursive\"Vrezh Is  HomE\"->>" 
 				+solutions.reverseStringRecursive("Vrezh Is Home"));
-
 	}
 
 	@Test
@@ -278,11 +270,11 @@ public class SolutionTest {
 		System.out.println("\n>>>> >>>> reverseStringStack(\"Vagram is Not Here\")");
 		solutions.reverseStringStack("Vagram is Not Here");
 	}
-
 	
 	@Test
 	public void reverseNullStringStackTest() {
-		Assert.assertTrue (solutions.reverseStringStack(null)==null);
+		//Assert.assertTrue (solutions.reverseStringStack(null)==null);
+		Assert.assertTrue (solutions.reverseStringStack(null)=="");
 	}
 
 	@Test
@@ -333,7 +325,6 @@ public class SolutionTest {
 		int [] input={2,3,4,8,111,56,44};
 		HashMap <Integer, Integer> sumMap = solutions.twoSumFast(input,5);			
 		System.out.println("\n First " +sumMap.get(0)+ " Second " +sumMap.get(1));
-
 	}
 
 	@Test
@@ -341,7 +332,6 @@ public class SolutionTest {
 		int [] input={2,3,4,8,111,56,44};
 		HashMap <Integer, Integer> sumMap = solutions.twoSumFast(input,119);			
 		System.out.println("\n First " +sumMap.get(0)+ " Second " +sumMap.get(1));
-
 	}
 
 	@Test
@@ -373,6 +363,7 @@ public class SolutionTest {
 		solutions.switchMethod();
 
 	}
+	
 	@Test
 	public void smallestDistancePairTest() {
 		int[] intArray2={1,5,9,13,13,10,11,12,15};
