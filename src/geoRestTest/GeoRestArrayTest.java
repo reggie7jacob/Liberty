@@ -3,6 +3,11 @@ package geoRestTest;
 import georest.GeoRestArray;
 import georest.Messages;
 import org.testng.annotations.Test;
+
+import com.google.gson.JsonArray;
+
+import java.io.IOException;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 
@@ -17,6 +22,23 @@ public class GeoRestArrayTest {
 		restApiArrayTests = new GeoRestArray();	  
 	}
 
+
+	@Test
+	public void getUsersData() {
+		String usersData=restApiArrayTests.getDataAsString((Messages.getString("httpURL2")));
+		System.out.println("-------Users ------- \n "+usersData);  
+		JsonArray usersDataJson=null;
+		try {
+			usersDataJson=restApiArrayTests.getUsersData(usersData);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("\n-------Users json ------- \n "+usersDataJson.toString()); 
+	}
+	
+	
+	//=========================================================================================//
 	@Test
 	public void IllegalCharTest() {	  
 

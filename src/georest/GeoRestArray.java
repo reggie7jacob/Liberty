@@ -6,10 +6,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.JsonArray;
@@ -23,25 +26,23 @@ public class GeoRestArray {
 
 
 	/**
-	 * @return string of states info NOTE: there are invalid names such as dates
-	 * instead of names etc. I decided NOT to strip the data, just verify
-	 * and returned data with message
-	 * @param httpURL
-	 * @return
+	 * @param endPointUrl end point to hit
+	 * @return string of user data
 	 */
-	public String getGeoData(String httpRequesType) {
+	public String getDataAsString(String endPointUrl) {
 
 		StringBuilder result = new StringBuilder();
 		BufferedReader rd;
-		HttpClient client = null;
+		CloseableHttpClient client = null;
 
 		try {
-			HttpGet request = new HttpGet(httpRequesType);
+			HttpGet request = new HttpGet(endPointUrl);
 			client = HttpClientBuilder.create().build();
-
-			HttpResponse response = client.execute(request);
+			CloseableHttpResponse response = client.execute(request);
 			rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
+            HttpEntity entity = response.getEntity();
+            Header headers = entity.getContentType();
+            System.out.println("\nPrinting headers: " +headers+"\n");
 			String line = "";
 
 			while ((line = rd.readLine()) != null) {
@@ -59,6 +60,40 @@ public class GeoRestArray {
 
 		}
 		return result.toString();
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////
+
+	public JsonArray getUsersData(String parentElement) throws IOException {
+
+		com.google.gson.JsonObject jsonObject;
+		JsonElement userData = null;
+		if (parentElement != null) {
+
+			try {
+
+				jsonObject = new JsonParser().parse(parentElement).getAsJsonObject();
+				if (jsonObject.has("data")) {
+					userData = jsonObject.getAsJsonObject().get("data");
+
+					try {
+						return userData.getAsJsonArray();
+
+					} catch (Exception e) {
+						System.out.println("Error: Not a json array!!");
+						e.printStackTrace();
+						return null;
+					}
+				} else
+					System.out.println("Error: Did not find expected element ");
+				return null;
+			} catch (Exception e) {
+				System.out.println("Unable to get the users data set");
+				e.printStackTrace();
+				return null;
+			}
+		} 
+		return null;
 	}
 
 	/***
@@ -199,7 +234,7 @@ public class GeoRestArray {
 			return false;
 		}
 		try {
-			resultSet = getGeoData(urlType);
+			resultSet = getDataAsString(urlType);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
