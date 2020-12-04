@@ -9,27 +9,45 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.HttpClientUtils;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-import org.json.JSONException;
-import org.json.JSONObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonObject;
 
-public class GeoRestArray {
+public class LibertyAssignmentCore {
 
-	public GeoRestArray() {
+	double m_balance=110.50;
+	
+	public LibertyAssignmentCore() {
+	}
+
+	// should be synchronized but I don't have time for it... sorry
+	public boolean Withdraw(double amount) {
+		System.out.println("\nBalance before withdrowal is: " +m_balance);
+		if(m_balance<=0) return false;
+		// if amount is negative it will add money: bug in original question
+	    if(m_balance >= amount && amount>0) {
+	        m_balance -= amount;
+	        System.out.println("\n$ "+amount + "was withdrawn: balance now is: " +m_balance);
+	        return true;
+	        
+	    } else {
+	    	// no need to throw exception, just do nothing
+	        System.out.println("\nIllegal amount was tried to be withdrawn, balance still is: " +m_balance);	       
+	        return false;
+	    }
 	}
 
 
 	/**
-	 * @param endPointUrl end point to hit
+	 * @param endPointUrl end point to hit //data come from Messages class
 	 * @return string of user data
 	 */
 	public String getDataAsString(String endPointUrl) {
@@ -64,14 +82,16 @@ public class GeoRestArray {
 		}
 		return result.toString();
 	}
-					
+			
+	/*
+	 * 
+	 */
 	public int sendPost(String endPointUrl) throws Exception {
 		int statusCode=00;
         String payload = "{\"data\":[{\"email\": \"vrezh@gmail.com\", " +
                 "\"first_name\": \"Vrezh\", " + "\"last_name\": \"Akopyan\"}]}";
         
-        StringEntity entity = new StringEntity(payload,
-                ContentType.APPLICATION_JSON);
+        StringEntity entity = new StringEntity(payload, ContentType.APPLICATION_JSON);
 
         CloseableHttpClient  httpClient = HttpClientBuilder.create().build();
         HttpPost request = new HttpPost(endPointUrl);
@@ -79,16 +99,18 @@ public class GeoRestArray {
 
         HttpResponse response = httpClient.execute(request);
         statusCode=response.getStatusLine().getStatusCode();
-        System.out.println(response.getStatusLine().getStatusCode());
+        System.out.println("Response status code is: " +response.getStatusLine().getStatusCode());
         return  statusCode;
         
     }
 
+	/*
+	 * 
+	 */
 	
 	public int sendPostWithData(String endPointUrl, String payLoad) throws Exception {
 		int statusCode=00;
-        StringEntity entity = new StringEntity(payLoad,
-                ContentType.APPLICATION_JSON);
+        StringEntity entity = new StringEntity(payLoad,ContentType.APPLICATION_JSON);
 
         CloseableHttpClient  httpClient = HttpClientBuilder.create().build();
         HttpPost request = new HttpPost(endPointUrl);
@@ -96,17 +118,18 @@ public class GeoRestArray {
 
         HttpResponse response = httpClient.execute(request);
         statusCode=response.getStatusLine().getStatusCode();
-        System.out.println(response.getStatusLine().getStatusCode());
+        System.out.println("Response status code is: " + response.getStatusLine().getStatusCode());
         return  statusCode;
         
     }
 
+	/*
+	 * 
+	 */
 	
-	//////////////////////////////////////////////////////////////////////////////////////////////
-
 	public JsonArray getUsersData(String parentElement) throws IOException {
 
-		com.google.gson.JsonObject jsonObject;
+		JsonObject jsonObject;
 		JsonElement userData = null;
 		if (parentElement != null) {
 

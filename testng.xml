@@ -4,8 +4,7 @@
 <test name="Test All solutions" >
 
 <classes>
-<class name="geoRestTest.GeoRestArrayTest" />
-<class name="geoRestTest.GeoRestMapTest" />
+<class name="geoRestTest.LibertyAssignmentTest" />
  </classes> 
 
 </test>
