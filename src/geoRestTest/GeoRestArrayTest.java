@@ -18,13 +18,12 @@ public class GeoRestArrayTest {
 	// test class with test methods here	 
 	@BeforeTest
 	public void beforeTest() {
-		System.out.println("--------Starting GeoRestArrayTest ------- \n ");  
+		System.out.println("--------Starting Liberty Test ------- \n ");  
 		restApiArrayTests = new GeoRestArray();	  
 	}
 
-
 	@Test
-	public void getUsersData() {
+	public void getUsersDataTest() {
 		String usersData=restApiArrayTests.getDataAsString((Messages.getString("httpURL2")));
 		System.out.println("-------Users ------- \n "+usersData);  
 		JsonArray usersDataJson=null;
@@ -37,48 +36,53 @@ public class GeoRestArrayTest {
 		System.out.println("\n-------Users json ------- \n "+usersDataJson.toString()); 
 	}
 	
+	@Test
+	public void sendPostTest() {	  
+
+		try {
+			Assert.assertEquals(201,restApiArrayTests.sendPost(Messages.getString("httpURL2")));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
-	//=========================================================================================//
 	@Test
-	public void IllegalCharTest() {	  
-
-		Assert.assertFalse(restApiArrayTests.findStateInfo("Alab@aMa", Messages.getString("httpURL")));
+	public void sendPostWithInputDataTest() {	  
+		String payLoad = "{\"data\":[{\"email\": \"vrezhAkopyan@gmail.com\", " +
+                "\"first_name\": \"Vrezh2\", " + "\"last_name\": \"Akopyan2\"," + 
+				"\"avatar\": \"https://reqres.in/img/faces/5-image.jpg\"}]}";
+		try {
+			Assert.assertEquals(201,restApiArrayTests.sendPostWithData(Messages.getString("httpURL2"),payLoad));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void sendPostWithInputDataTest2() {	  
+		String payLoad = "{\"page\": \"1\","+ "\"per_page\": \"6\","+"\"total\": \"13\","+"\"total_pages\": \"3\","+"\"data\":[{\"email\": \"vrezhAkopyan@gmail.com\", " +
+                "\"first_name\": \"Vrezh2\", " + "\"last_name\": \"Akopyan2\"," + 
+				"\"avatar\": \"https://reqres.in/img/faces/5-image.jpg\"}]}";
+		try {
+			Assert.assertEquals(201,restApiArrayTests.sendPostWithData(Messages.getString("httpURL2"),payLoad));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
-	public void EmptyCharTest() {	  
-
-		Assert.assertFalse(restApiArrayTests.findStateInfo("", Messages.getString("httpURL")));
+	public void sendPostWithInputGivenAsTest() {	  
+		String payLoad = "{\"name\":\"darth vader\","+"\"job\":\"villain\"}";
+		try {
+			Assert.assertEquals(201,restApiArrayTests.sendPostWithData(Messages.getString("httpURL2"),payLoad));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	@Test
-	public void findWAStateInfoAbbreviatedWA() {
-		Assert.assertTrue(restApiArrayTests.findStateInfo("WA", Messages.getString("httpURL")));
-	}
-
-	@Test
-	public void findStateFullAlabama() {
-		Assert.assertTrue(restApiArrayTests.findStateInfo("AlabaMa", Messages.getString("httpURL")));
-	}
-
-	@Test
-	public void testSearchAmericanSamoa() {
-		Assert.assertTrue(restApiArrayTests.findStateInfo("AS", Messages.getString("httpSearchURL")));
-	}
-
-	@Test
-	public void testSearchCA() {
-		Assert.assertTrue(restApiArrayTests.findStateInfo("CA", Messages.getString("httpSearchURL")));
-	}
-
-	@Test
-	public void testSearchNY() {
-		Assert.assertTrue(restApiArrayTests.findStateInfo("NY", Messages.getString("httpSearchURL")));
-	}
-
-	@Test
-	public void testSearchFrance() {
-		Assert.assertFalse(restApiArrayTests.findStateInfo("France", Messages.getString("httpSearchURL")));
-	}
 
 }
