@@ -38,5 +38,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Reggie/Downloads/org.testng.eclipse.updatesite/artifacts.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Reggie/Downloads/org.testng.eclipse.updatesite/content.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Reggie/.p2/mockito-all-2.0.2-beta.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
