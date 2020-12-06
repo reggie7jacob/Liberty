@@ -11,6 +11,8 @@ import com.google.gson.JsonParser;
 import georest.LibertyAssignmentCore;
 
 public class LibertyAssignmentTest {
+	
+	public LibertyAssignmentTest() {};
 
 	LibertyAssignmentCore libertyCore;
 	

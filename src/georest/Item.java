@@ -9,9 +9,11 @@ package georest;
  */
 public interface Item {
 
-	String getName();
-	int getPrice(String name);
-
-
+	
+	public String getName();
+	public void setName(String name);
+	
+	public int getPrice();	
+	public void setPrice (int price);
 
 }

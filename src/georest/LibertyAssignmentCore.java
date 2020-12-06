@@ -47,7 +47,7 @@ public class LibertyAssignmentCore {
 
 
 	/**
-	 * @param endPointUrl end point to hit //data come from Messages class
+	 * @param endPointUrl end point to hit //data come from messages.properties
 	 * @return string of user data
 	 */
 	public String getDataAsString(String endPointUrl) {
@@ -84,7 +84,7 @@ public class LibertyAssignmentCore {
 	}
 			
 	/*
-	 * 
+	 * @param endPointUrl end point to hit
 	 */
 	public int sendPost(String endPointUrl) throws Exception {
 		int statusCode=00;
@@ -105,7 +105,8 @@ public class LibertyAssignmentCore {
     }
 
 	/*
-	 * 
+	 * @param endPointUrl end point to hit
+	 * @param payLoad string in json format
 	 */
 	
 	public int sendPostWithData(String endPointUrl, String payLoad) throws Exception {
@@ -124,7 +125,7 @@ public class LibertyAssignmentCore {
     }
 
 	/*
-	 * 
+	 * @param parentElement string in json format to be parsed
 	 */
 	
 	public JsonArray getUsersData(String parentElement) throws IOException {
@@ -159,7 +160,11 @@ public class LibertyAssignmentCore {
 		return null;
 	}
 	
-
+/**
+ * 
+ * @param toExamine
+ * @return true if any illegal chars found (see messages.properties)
+ */
 	public boolean hasIllegalCharacters(String toExamine) {
 
 		String[] arr = toExamine.split(Messages.getString("illegalChars"), 2);
