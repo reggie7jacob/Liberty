@@ -21,7 +21,7 @@ public class LibertyAssignmentTest {
 	// test class with test methods here	 
 	@BeforeTest
 	public void beforeTest() {
-		System.out.println("--------Starting Liberty Test ------- \n ");  
+		System.out.println("--------Starting Liberty Tests ------- \n ");  
 		libertyCore = new LibertyAssignmentCore();	  
 	}
 
@@ -90,6 +90,55 @@ public class LibertyAssignmentTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void sendPostWithBadRequestTest() {	  
+		String payLoad = "asdf";
+		try {
+			Assert.assertEquals(400,libertyCore.sendPostWithData(regresUrl,payLoad));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void sendPostWithNullPayLoadTest() {	  
+		String payLoad = null;
+		try {
+			Assert.assertEquals(400,libertyCore.sendPostWithData(regresUrl,payLoad));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void sendPostWithMalFormedJsonStringTest() {	  
+		String payLoad = "\"{\\\"nan\\\"";
+		try {
+			Assert.assertEquals(400,libertyCore.sendPostWithData(regresUrl,payLoad));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void sendSimpleGetOKTest() {	  
 
+		try {
+			Assert.assertEquals(200,libertyCore.sendSimpleGetRequest((regresUrl)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void sendSimpleGetTest() {	  
+
+		try {
+			Assert.assertEquals(200,libertyCore.sendSimpleGetRequest((regresUrl+"asdf")));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
