@@ -80,6 +80,18 @@ public class LibertyAssignmentTest {
 		}
 	}
 	
+	@Test
+	public void sendPostWithMalFormedJsonTest() {	  
+		String payLoad = "{\"data\":[{\"email\": \"vrezhAkopyan@gmail.com\", " +
+                "\"first_name\": \"Vrezh2\", " + "\"last_name\": \"Akopyan2\"," + 
+				"\"avatar\": \"https://reqres.in/img/faces/5-image.jpg\"}]";
+		try {
+			Assert.assertEquals(201,libertyCore.sendPostWithData(regresUrl,payLoad));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	@Test
 	public void sendPostWithInputGivenAsTest() {	  
@@ -113,7 +125,7 @@ public class LibertyAssignmentTest {
 	
 	@Test
 	public void sendPostWithMalFormedJsonStringTest() {	  
-		String payLoad = "\"{\\\"nan\\\"";
+		String payLoad = "\"\\\"nan\\{\"}";
 		try {
 			Assert.assertEquals(400,libertyCore.sendPostWithData(regresUrl,payLoad));
 		} catch (Exception e) {
